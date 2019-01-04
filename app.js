@@ -26,10 +26,12 @@ document.querySelector('.btn-roll').addEventListener('click', function(){
     if(dices != 1){
         //document.querySelector('.score-' + activePlayer).textContent = '0';
         roundScore += dices;
-        document.querySelector('.current-' + activePlayer).textContent = roundScore;
-       
+        document.querySelector('.current-' + activePlayer).textContent = roundScore;      
+    }else{
+        document.querySelector('.current-' + activePlayer).textContent = roundScore; 
     }
 });
 document.querySelector('.btn-hold').addEventListener('click', function(){
     console.log('hold');
+    console.log(roundScore);
 });
