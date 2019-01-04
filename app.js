@@ -7,7 +7,6 @@ roundScore = 0;
 activePlayer = 0;
 var diceImg = document.querySelector('.diceImg');
 
-//document.querySelector('.current-' + activePlayer).textContent = dices;
 document.querySelector('.btn-new').addEventListener('click', function(){
     diceImg.style.display= 'none';
     document.querySelector('.score-0').textContent = '0';
@@ -16,22 +15,36 @@ document.querySelector('.btn-new').addEventListener('click', function(){
     document.querySelector('.current-1').textContent = '0';
 });
 document.querySelector('.btn-roll').addEventListener('click', function(){
-    console.log('roll');
     // dices random integer from 1 to 6 included
     var dices = Math.floor(Math.random() * 6 + 1);
     // display the random number
     diceImg.style.display= 'block';
     diceImg.src = 'dice-' + dices + '.png';    
     // update the score if the rolled number wasnt 1
-    if(dices != 1){
-        //document.querySelector('.score-' + activePlayer).textContent = '0';
+    if(dices !== 1){
+        // add score
         roundScore += dices;
         document.querySelector('.current-' + activePlayer).textContent = roundScore;      
     }else{
+        roundScore = 0;
         document.querySelector('.current-' + activePlayer).textContent = roundScore; 
+        // next player
+        document.querySelector('.playerMessage-' + activePlayer).textContent = '';
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        document.querySelector('.playerMessage-' + activePlayer).textContent = 'Now You Play';
     }
 });
 document.querySelector('.btn-hold').addEventListener('click', function(){
-    console.log('hold');
-    console.log(roundScore);
+    scores[activePlayer] += roundScore; 
+    document.querySelector('.score-' + activePlayer).textContent = scores[activePlayer];    
+    document.querySelector('.playerMessage-' + activePlayer).textContent = '';
+    // check if winer
+    if(scores[activePlayer] >= 50){
+        document.querySelector('.playerMessage-' + activePlayer).textContent = "You're a winer. You have 50 or more points";
+    }else{
+        // next player
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        document.querySelector('.playerMessage-' + activePlayer).textContent = 'Now You Play';
+        roundScore = 0;
+    }   
 });
